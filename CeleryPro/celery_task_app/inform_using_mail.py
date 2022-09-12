@@ -10,3 +10,4 @@ def send_mail_to(subject, message, receivers):
               ],
               fail_silently=False,
               )
+    return

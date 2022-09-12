@@ -58,7 +58,9 @@ def my_first_task(self):
         print("err!!!!!!!!!!!!", err)
     if is_task_completed:
         send_mail_to(subject, message, receivers)
+        return 'first_task_done'
     else:
         send_mail_to(subject, error, receivers)
-    print("=== end ===")
-    return 'first_task_done'
+        return str(error)
+    # print("=== end ===")
+
