@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
+from celery.schedules import crontab
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +39,7 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'django_celery_beat',
 ]
 
 LOCAL_APPS = ["celery_task_app", ]
@@ -130,6 +133,14 @@ result_serializer = 'json'
 accept_content = ['json']
 timezone = 'Asia/Kolkata'
 enable_utc = True
+
+CELERY_BEAT_SCHEDULE = {
+    # Executes every afternoon
+    'run-every-afternoon': {
+         'task': 'celery_task_app.tasks.send_email_task',
+         "schedule": crontab(minute="*/1"),
+        },
+}
 
 # CELERY_BROKER_URL = 'redis://h:p35dfc08bb5d2a659e408bc61dec2d58d0ed77ae61b5cd60e30d48b43e7ff7944@ec2-3-222-186-102.compute-1.amazonaws.com:11459'
 #

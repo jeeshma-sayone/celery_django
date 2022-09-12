@@ -1,4 +1,6 @@
+import celery
 from celery import shared_task
+from celery.app import task
 from django.core.mail import send_mail
 
 from time import sleep
@@ -12,16 +14,17 @@ def sleepy(duration):
     return None
 
 
-@shared_task(bind=True)
-def send_email_task(self):
-    print("====== START ======")
+# @shared_task(bind=True
+@shared_task
+def send_email_task():
+    print("====== START ====== BEAT")
     # sleep(10)
     # send_mail('Celery Task Worked!',
     #           'This is proof the task worked!',
     #           'jeeshma@sayonetech.com',
     #           ['jeeshma2009@gmail.com'])
 
-    send_mail('Celery Task TEST!',
+    send_mail('Celery Beat Task TEST!',
               'This is proof the task worked!',
               'jeeshma@sayonetech.com',
               [
