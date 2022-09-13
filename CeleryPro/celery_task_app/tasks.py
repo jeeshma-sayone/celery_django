@@ -48,7 +48,7 @@ def send_email_task():
 @shared_task(bind=True)
 def my_first_task(self):
     print("=== start ===")
-    subject = 'Celery Task TEST!'
+    subject = 'Celery Task TEST Beat!!!!!'
     message = 'My task done successfully'
     receivers = 'jeeshma2009@gmail.com'
     is_task_completed = False

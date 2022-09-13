@@ -125,21 +125,34 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-broker_url = 'pyamqp://'
-result_backend = 'rpc://'
+# broker_url = 'pyamqp://'
+# result_backend = 'rpc://'
+#
+# task_serializer = 'json'
+# result_serializer = 'json'
+# accept_content = ['json']
+# timezone = 'Asia/Kolkata'
 
-task_serializer = 'json'
-result_serializer = 'json'
-accept_content = ['json']
-timezone = 'Asia/Kolkata'
-enable_utc = True
+# CELERY SETTINGS
+
+CELERY_BROKER_URL = 'pyamqp://'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Kolkata'
+
+# CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_BACKEND = 'rpc://'
+# CELERY BEAT
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+# enable_utc = True
 
 CELERY_BEAT_SCHEDULE = {
     # Executes every afternoon
     'run-every-afternoon': {
-         'task': 'celery_task_app.tasks.send_email_task',
-         "schedule": crontab(minute="*/1"),
-        },
+        'task': 'celery_task_app.tasks.my_first_task',
+        "schedule": crontab(minute="*/1"),
+    },
 }
 
 # CELERY_BROKER_URL = 'redis://h:p35dfc08bb5d2a659e408bc61dec2d58d0ed77ae61b5cd60e30d48b43e7ff7944@ec2-3-222-186-102.compute-1.amazonaws.com:11459'
